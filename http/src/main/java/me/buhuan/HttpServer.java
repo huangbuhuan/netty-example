@@ -30,7 +30,7 @@ public class HttpServer {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		new HttpServer(8000).start();
+		new HttpServer(8081).start();
 	}
 
 	public void start() throws InterruptedException {
@@ -46,9 +46,9 @@ public class HttpServer {
 					protected void initChannel(Channel ch)  {
 						ChannelPipeline pipeline = ch.pipeline();
 						// 添加http解码器
-						pipeline.addLast("codec", new HttpServerCodec());
-						// 添加消息聚合器
-						pipeline.addLast(new HttpObjectAggregator(64 * 1024));
+						pipeline.addLast("httpCodec", new HttpServerCodec());
+						// 添加消息聚合器e
+						pipeline.addLast("httpObject", new HttpObjectAggregator(64 * 1024));
 						// 添加自定义处理器
 						pipeline.addLast(new HttpsServerHandler());
 					}

@@ -16,6 +16,8 @@ public class HttpsServerHandler extends SimpleChannelInboundHandler<HttpObject> 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
 		if (msg instanceof HttpRequest) {
+			HttpRequest httpRequest = (HttpRequest) msg;
+			String host = httpRequest.headers().get(HttpHeaderNames.HOST);
 			String content = "hello world";
 			FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled
 				.wrappedBuffer(content.getBytes()));
